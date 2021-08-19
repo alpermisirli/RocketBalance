@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 public class RocketCollisionHandler : MonoBehaviour
 {
     [SerializeField] float levelLoadDelay = 2f;
-    [SerializeField] private AudioClip success;
-    [SerializeField] private AudioClip crash;
+    [SerializeField] private AudioClip successAudio;
+    [SerializeField] private AudioClip crashAudio;
 
     [SerializeField] private ParticleSystem successParticles;
     [SerializeField] private ParticleSystem crashParticles;
@@ -50,7 +50,7 @@ public class RocketCollisionHandler : MonoBehaviour
     {
         isTransitioning = true;
         audioSource.Stop();
-        audioSource.PlayOneShot(success);
+        audioSource.PlayOneShot(successAudio);
         successParticles.Play();
         GetComponent<Movement>().enabled = false;
         Invoke("LoadNextLevel", levelLoadDelay);
@@ -60,7 +60,7 @@ public class RocketCollisionHandler : MonoBehaviour
     {
         isTransitioning = true;
         audioSource.Stop();
-        audioSource.PlayOneShot(crash);
+        audioSource.PlayOneShot(crashAudio);
         crashParticles.Play();
         GetComponent<Movement>().enabled = false;
         Invoke("ReloadLevel", levelLoadDelay);
