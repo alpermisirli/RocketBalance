@@ -15,16 +15,34 @@ public class RocketCollisionHandler : MonoBehaviour
 
     AudioSource audioSource;
 
-    bool isTransitioning = false;
+    private bool isTransitioning = false;
+    private bool collisionEventsDisabled = false;
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
     }
 
+    private void Update()
+    {
+        RespondToDebugKeys();
+    }
+
+    private void RespondToDebugKeys()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadNextLevel();
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            collisionEventsDisabled = !collisionEventsDisabled; //Toggle collision
+        }
+    }
+
     void OnCollisionEnter(Collision other)
     {
-        if (isTransitioning)
+        if (isTransitioning || collisionEventsDisabled)
         {
             return;
         }
